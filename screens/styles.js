@@ -4,7 +4,7 @@ export default StyleSheet.create({
     container: {
         display: 'flex',
         // flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#f3f3f3',
         alignItems: 'center',
         justifyContent: 'space-evenly',
         alignContent: 'center',
@@ -27,6 +27,14 @@ export default StyleSheet.create({
         color: '#000',
         fontWeight: 'bold',
         textAlign: 'center',
-
+    },
+    cardText: {
+        fontSize: 13,
+        padding: 3,
+        color: '#000',
+        margin: 3,
+        borderColor: '#000',
+        borderRadius: 5,
+        borderWidth: 1,
     }
 });

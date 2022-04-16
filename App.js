@@ -1,34 +1,43 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from './screens/Home';
-import ProfileScreen from './screens/Profile';
-import HelloScreen from './screens/Hello';
+import {
+  HNScreen,
+  DetailScreen,
+  AboutScreen,
+  DeveloperScreen,
+} from './screens';
+import store from './features/store';
+import { Provider as ReduxProvider } from 'react-redux';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-
-
-
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ title: 'Wellcame Ta Hooome' }}
-        />
-        <Stack.Screen
-          name="Profile"
-          component={ProfileScreen}
-          options={{ title: 'Profileee' }}
-        />
-        <Stack.Screen
-          name="Hello"
-          component={HelloScreen}
-          options={{ title: 'Hella' }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <ReduxProvider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Hacker News"
+            component={HNScreen}
+            options={{ title: 'Hacker News' }}
+          />
+          <Stack.Screen
+            name="Developer"
+            component={DeveloperScreen}
+            options={{ title: 'Developer' }}
+          />
+          <Stack.Screen
+            name="About"
+            component={AboutScreen}
+            options={{ title: 'About' }}
+          />
+          <Stack.Screen
+            name="Detail"
+            component={DetailScreen}
+            options={{ title: 'Detail' }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ReduxProvider>
   );
 }
