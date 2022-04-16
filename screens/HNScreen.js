@@ -11,12 +11,12 @@ import { Button } from "../utils";
 const HomeScreen = ({ navigation }) => {
 
     const dispatch = useDispatch();
-    const { news } = useSelector(state => state.news);
-    const [loading, setLoading] = useState(false);
+    const { news, loading, newsCount } = useSelector(state => state.news);
+    const [offset, setOffset] = useState(0);
+    const [limit, setLimit] = useState(20);
 
     useEffect(() => {
-        const shouldFetch = store.getState().news.news.length === 0;
-        shouldFetch && dispatch(initialFetch());
+        newsCount === 0 && dispatch(initialFetch(offset, limit));
     }, []);
 
     const RenderNews = (item) => {
@@ -55,14 +55,13 @@ const HomeScreen = ({ navigation }) => {
     }} />
 
     const handleRefresh = () => {
-        setLoading(true);
-        dispatch(initialFetch());
-        setLoading(false);
+        setOffset(0);
+        dispatch(initialFetch(offset, limit));
     }
 
-    const showToastWithGravityAndOffset = () => {
+    const showToastWithGravityAndOffset = (message = null) => {
         ToastAndroid.showWithGravityAndOffset(
-            "Refreshing... wait!",
+            message ?? "Refreshing... wait!",
             ToastAndroid.SHORT,
             ToastAndroid.BOTTOM,
             25,
@@ -73,7 +72,7 @@ const HomeScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            {news.length === 0 ? <Loadingscreen /> :
+            {loading && newsCount === 0 ? <Loadingscreen /> :
                 <FlatList
                     data={news}
                     renderItem={({ item }) => RenderNews(item)}
@@ -81,6 +80,12 @@ const HomeScreen = ({ navigation }) => {
                     ItemSeparatorComponent={ItemSeprator}
                     refreshing={loading}
                     onRefresh={() => handleRefresh()}
+                    onEndReachedThreshold={0.1}
+                    onEndReached={() => {
+                        showToastWithGravityAndOffset('Loading more...');
+                        setOffset(offset + limit);
+                        // dispatch(initialFetch(offset, limit));
+                    }}
                 />
             }
             <View style={{
@@ -100,10 +105,13 @@ const HomeScreen = ({ navigation }) => {
                     }
                 />
                 <Text
-                    onPress={() => showToastWithGravityAndOffset()}
-                    style={{ color: "#fafafa" }}>
+                    onPress={() => {
+                        showToastWithGravityAndOffset('Yep, these are the top stories');
+                    }}
+                    style={{ color: "#fafafa" }}
+                >
                     <Fontisto name="hacker-news" size={18} color="white" />
-                    {' '} Top news: {news.length}
+                    {' '} Top news: {offset + limit}
                 </Text>
                 <Button
                     title="Feedback"
