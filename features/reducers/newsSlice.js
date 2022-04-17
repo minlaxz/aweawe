@@ -18,7 +18,6 @@ const newsSlice = createSlice({
             state.error = null;
         },
         setLoading: (state, action) => {
-            state.news = [];
             state.loading = action.payload;
         },
         setError: (state, action) => {

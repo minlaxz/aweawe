@@ -40,33 +40,11 @@ export default StyleSheet.create({
         shadowOffset: { width: 0, height: 0 },
         shadowOpacity: 0.5,
     },
-    detailContainer : {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-evenly',
-        alignItems: 'center',
-        alignContent: 'center',
-        height: '80%',
-        // width: '100%',
-    },
     deatilTitle: {
         fontSize: 20,
         fontWeight: 'bold',
         textAlign: 'center',
         margin:20,
         padding:20
-    },
-    profileImage: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-        margin: 20,
-        padding: 20,
-        borderWidth: 1,
-        borderColor: 'black',
-        shadowRadius: 5,
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: 0 },
-        shadowOpacity: 0.5,
     },
 });

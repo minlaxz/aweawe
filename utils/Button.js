@@ -3,10 +3,18 @@ import { Text, View, StyleSheet, Pressable } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 
 export default function Button(props) {
-    const { onPress, title = 'Custom Button' } = props;
+    const { onPress, title = 'Custom Button', disabled, customButtonStyles, customTextStyles } = props;
     return (
-        <Pressable style={styles.button} onPress={onPress}>
-            <Text style={styles.text}>{title}</Text>
+        <Pressable
+            style={{ ...styles.button, ...customButtonStyles }}
+            onPress={onPress}
+            disabled={disabled}
+        >
+            <Text
+                style={{ ...styles.text, ...customTextStyles }}
+            >
+                {title}
+            </Text>
         </Pressable>
     );
 }
