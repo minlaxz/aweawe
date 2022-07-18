@@ -13,7 +13,7 @@ const newsSlice = createSlice({
     reducers: {
         addNews: (state, action) => {
             state.news = action.payload;
-            state.newsCount = action.payload.length;
+            state.newsCount = state.news.length;
             state.loading = false;
             state.error = null;
         },

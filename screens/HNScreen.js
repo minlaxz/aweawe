@@ -13,7 +13,7 @@ const HomeScreen = ({ navigation }) => {
     const dispatch = useDispatch();
     const { news, loading, newsCount } = useSelector(state => state.news);
     const [offset, setOffset] = useState(0);
-    const [limit, setLimit] = useState(20);
+    const [limit, setLimit] = useState(30);
 
     useEffect(() => {
         newsCount === 0 && dispatch(initialFetch(offset, limit));
@@ -84,8 +84,9 @@ const HomeScreen = ({ navigation }) => {
                     onEndReached={() => {
                         showToastWithGravityAndOffset('Loading more...');
                         setOffset(offset + limit);
-                        // dispatch(initialFetch(offset, limit));
+                        dispatch(initialFetch(offset, limit));
                     }}
+                    extraData={newsCount}
                 />
             }
             <View style={{
